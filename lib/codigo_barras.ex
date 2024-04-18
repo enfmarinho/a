@@ -1,4 +1,4 @@
-defmodule CodigoBarras do
+defmodule codigobarras do
   @moduledoc """
   Documentation for `CodigoBarras`.
   """
