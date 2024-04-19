@@ -1,4 +1,4 @@
-defmodule codigobarras do
+defmodule Codigo_barras do
   @moduledoc """
   Documentation for `CodigoBarras`.
   """
@@ -8,7 +8,7 @@ defmodule codigobarras do
 
   ## Examples
 
-      iex> CodigoBarras.hello()
+      iex> Codigo_barras.hello()
       :world
 
   """
