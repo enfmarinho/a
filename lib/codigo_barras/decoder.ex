@@ -28,7 +28,7 @@ defmodule Codigobarras.Decoder do
     dados_especificos |> imprimir_dados_especificos
 
     # TODO check if this function call is correctly
-    Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos)
+    Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv)
   end
   defp imprimir_codigo_banco(codigo_banco) do
     "Codigo do banco: " |> IO.write

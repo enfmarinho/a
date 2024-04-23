@@ -125,19 +125,19 @@ defmodule Codigobarras.Encoder do
   end
 
   defp imprimir_campo_2(dados_especificos, convenio) do
-    [ _head | rest ] = Enum.slice(convenio, 5)
-    [ before_dot | after_dot ] = Enum.slice(rest, 5)
+    { _head, rest } = Enum.slice(convenio, 5)
+    { before_dot, after_dot } = Enum.slice(rest, 5)
     before_dot |> IO.inspect
     '.' |> IO.puts
     after_dot |> IO.inspect
-    [ head | _ ] = Enum.split(dados_especificos, 3)
+    { head, _ } = Enum.split(dados_especificos, 3)
     head |> IO.inspect
     calcular_dv_campo2(dados_especificos, convenio) |> IO.write
     " " |> IO.puts
   end
 
   defp imprimir_campo_3(convenio, dados_especificos) do
-    [ _ | tail ] = Enum.split(dados_especificos, 6)
+    { _, tail } = Enum.split(dados_especificos, 6)
     tail |> IO.inspect
     calcular_dv_campo3(convenio, dados_especificos) |> IO.write
     " " |> IO.puts
