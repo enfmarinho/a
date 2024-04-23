@@ -42,7 +42,7 @@ defmodule Codigobarras.Decoder do
     "data_vencimento: " |> IO.write
     data_vencimento |> IO.inspect
   end
-  defp imprimir_valor() do
+  defp imprimir_valor(valor) do
     "Valor: " |> IO.write
     valor |> IO.inspect
   end
