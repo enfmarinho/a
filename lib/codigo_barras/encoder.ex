@@ -5,6 +5,8 @@ defmodule Codigobarras.Encoder do
       false -> {:error ,"Tem algo de errado"}
     end
   end
+  #PERGUNTAR AO PROFESSOR SE O ENCODER PRECISA LER BATCH POR BATCHES OU PODE LER DIRETO OS 44 DÍGITOS
+  #TALVEZ SEJA MELHOR LER TODOS DE UMA VEZ SÓ
 
   def ler_lista(size) do
     IO.puts("Digite os proximos #{size} digitos do código de barras: ")
@@ -24,12 +26,12 @@ defmodule Codigobarras.Encoder do
 
 
   #ler o código do banco
-  def ler_codigo_banco(codigo , lista , lista_codigo_banco) when is_list(codigo) and length(codigo) >=3 do
+  def ler_codigo_banco(codigo , lista) when is_list(codigo) and length(codigo) >=3 do
 
-    {:ok , codigo_banco} = ler_lista(3) #ler os 3 dígitos e salvar na lista como os 3 primeiros dos 44
+    {:ok , codigo} = ler_lista(3) #ler os 3 dígitos e salvar na lista como os 3 primeiros dos 44
 
-    case codigo_banco do
-      {:ok , input} -> {:ok , [codigo_banco | lista] , [codigo_banco | lista_codigo_banco]}
+    case codigo do
+      {:ok , input} -> {:ok , [codigo | lista] , [codigo | lista_codigo_banco]}
 
       _ -> {:error , lista , lista_codigo_banco}
 
