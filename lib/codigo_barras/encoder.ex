@@ -33,7 +33,7 @@ defmodule Codigobarras.Encoder do
     |> Enum.map(&String.to_integer/1)
 
     case length(input) == size do
-      true -> {:ok , input}
+      true -> {:ok , input} #
       false -> {:error , "Número incorreto "}
     end
 
@@ -41,23 +41,78 @@ defmodule Codigobarras.Encoder do
 
   #pos 4
   def ler_moeda(size , lista) when is_list(lista) do
-    
+
+    IO.puts("Digite o código da moeda: ")
+    input = IO.gets("")
+    |> String.trim()
+    |> String.split("" , trim: true)
+    |> Enum.map(&String.to_integer/1)
+
+    case length(input) == size do
+      true -> {:ok , input}
+      false -> {:error , "Número incorreto "}
+    end 
   end
   
   #pos 
-  def ler_data_vencimento
+  def ler_data_vencimento(size , lista) when is_list(lista) do
+    IO.puts("Digite a data de vencimento DD/MM/AAAA: ")
+    input = IO.gets("")
+    |> String.trim()
+    |> String.split("" , trim: true)
+    |> Enum.map(&String.to_integer/1)
+
+    case length(input) == size do
+      true -> {:ok , input}
+      false -> {:error , "Número incorreto "}
+    end
+  end
   
   #valor 
-  def ler_valor
+  def ler_valor(size , lista) when is_list(lista) do
+    IO.puts("Digite o valor: ")
+    input = IO.gets("")
+    |> String.trim()
+    |> String.split("" , trim: true)
+    |> Enum.map(&String.to_integer/1)
+
+    case length(input) == size do
+      true -> {:ok , input}
+      false -> {:error , "Número incorreto "}
+    end
+  end
 
 
-  def convenio
+  def convenio(size , lista) when is_list(lista) do
+    IO.puts("Digite o tipo de convênio: ")
+    input = IO.gets("")
+    |> String.trim()
+    |> String.split("" , trim: true)
+    |> Enum.map(&String.to_integer/1)
 
-  def dados
+    case length(input) == size do
+      true -> {:ok , input}
+      false -> {:error , "Número incorreto "}
+    end
+  end
+
+  def dados_especificos(size , lista) when is_list(lista) do
+      IO.puts("Digite os dados_especificos: ")
+    input = IO.gets("")
+    |> String.trim()
+    |> String.split("" , trim: true)
+    |> Enum.map(&String.to_integer/1)
+
+    case length(input) == size do
+      true -> {:ok , input}
+      false -> {:error , "Número incorreto "}
+    end
+  end
 
 
-  def function_that_read_all(lista) when is_list(lista) do
+  def function_read_all() do
     #essa função chama todas as funções acima e lê tudo 
+    
   end
 end
 
