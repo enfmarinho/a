@@ -25,45 +25,39 @@ defmodule Codigobarras.Encoder do
   #aqui eu gostaria de criar uma lista para salvar tudo e atualizar a cada leitura de um pedaço
 
 
-  #ler o código do banco
-  def ler_codigo_banco(codigo , lista) when is_list(codigo) and length(codigo) >=3 do
+  def ler_codigo_banco(size,lista) when is_list(lista) and size>=3  do
+    IO.puts("Digite o código do banco: ")
+    input = IO.gets("")
+    |> String.trim()
+    |> String.split("" , trim: true)
+    |> Enum.map(&String.to_integer/1)
 
-    {:ok , codigo} = ler_lista(3) #ler os 3 dígitos e salvar na lista como os 3 primeiros dos 44
-
-    case codigo do
-      {:ok , input} -> {:ok , [codigo | lista] , [codigo | lista_codigo_banco]}
-
-      _ -> {:error , lista , lista_codigo_banco}
-
+    case length(input) == size do
+      true -> {:ok , input}
+      false -> {:error , "Número incorreto "}
     end
-    #aqui eu quero criar uma lista como uma cópia chamada lista_codigo_banco[3] que vai ser importante para gerar os 3 dígitos dos 47
 
   end
 
-  #ler moeda
-  def ler_moeda(codigo , lista) when is_list(lista) and length(codigo) >= 4 do
-
-    {ok , moeda} = ler_lista(1)
-    case moeda do
-      {:ok , input} ->
-         {ok , [moeda | lista]} #tem que ter os : no ok?
-
-      _ -> {:error , lista}
-    end
+  #pos 4
+  def ler_moeda(size , lista) when is_list(lista) do
+    
   end
+  
+  #pos 
+  def ler_data_vencimento
+  
+  #valor 
+  def ler_valor
 
-  #ler o resto
+
+  def convenio
+
+  def dados
+
+
+  def function_that_read_all(lista) when is_list(lista) do
+    #essa função chama todas as funções acima e lê tudo 
+  end
 end
 
-
-
-#  def receber_codigo_barras_do_usuario() do
- #   case ler_lista_44_digitos() do
-  #    {:ok, codigo} ->
-   #     IO.puts("Código de barras lido: #{inspect(codigo)}")
-    #    codigo
-     # {:error, mensagem} ->
-      #  IO.puts("Erro ao ler código de barras: #{mensagem}")
-      #  receber_codigo_barras_do_usuario() # Chama novamente a função se houver erro
-    #end
-  #end
