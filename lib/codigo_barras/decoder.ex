@@ -1,6 +1,9 @@
 defmodule Codigobarras.Decoder do
   def read() do
-    # TODO return a list with 44 ints
+    # TODO return a list with 44 ints in the expected order 
+    # [codigo_banco, moeda, dv, data_vencimento, valor, convenio, dados_especificos] 
+    list = []
+    split_informacoes(list)
   end
   def split_informacoes(list) do
     [head | tail] = Enum.split(list, 3)
@@ -16,6 +19,15 @@ defmodule Codigobarras.Decoder do
     [head | tail] = Enum.split(tail, 11)
     convenio = head
     dados_especificos = tail
+
+    codigo_banco |> imprimir_codigo_banco
+    moeda |> imprimir_moeda
+    data_vencimento |> imprimir_data_vencimento
+    valor |> imprimir_valor
+    convenio |> imprimir_tipos_convenio
+    dados_especificos |> imprimir_dados_especificos
+
+    Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos)
   end
   def imprimir_codigo_banco(codigo_banco) do
     "Codigo do banco: " |> IO.write
