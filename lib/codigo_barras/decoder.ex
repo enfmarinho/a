@@ -5,7 +5,7 @@ defmodule Codigobarras.Decoder do
     list = []
     split_informacoes(list)
   end
-  def split_informacoes(list) do
+  defp split_informacoes(list) do
     [head | tail] = Enum.split(list, 3)
     codigo_banco = head
     [head | tail] = Enum.split(tail, 1)
@@ -30,27 +30,27 @@ defmodule Codigobarras.Decoder do
     # TODO check if this function call is correctly
     Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos)
   end
-  def imprimir_codigo_banco(codigo_banco) do
+  defp imprimir_codigo_banco(codigo_banco) do
     "Codigo do banco: " |> IO.write
     codigo_banco |> IO.inspect
   end
-  def imprimir_moeda(moeda) do
+  defp imprimir_moeda(moeda) do
     "moeda: " |> IO.write
     moeda |> IO.inspect
   end
-  def imprimir_data_vencimento(data_vencimento) do 
+  defp imprimir_data_vencimento(data_vencimento) do 
     "data_vencimento: " |> IO.write
     data_vencimento |> IO.inspect
   end
-  def imprimir_valor() do
+  defp imprimir_valor() do
     "Valor: " |> IO.write
     valor |> IO.inspect
   end
-  def imprimir_tipos_convenio(convenio) do
+  defp imprimir_tipos_convenio(convenio) do
     "Convenio: " |> IO.write
     convenio |> IO.inspect
   end
-  def imprimir_dados_especificos(dados_especificos) do
+  defp imprimir_dados_especificos(dados_especificos) do
     "Dados especificos: " |> IO.write
     dados_especificos |> IO.inspect
   end

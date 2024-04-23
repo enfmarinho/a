@@ -1,6 +1,6 @@
 defmodule Codigobarras.Encoder do
   # digito 1 a 3
-  def ler_codigo_banco(lista) when is_list(lista) do
+  defp ler_codigo_banco(lista) when is_list(lista) do
     IO.puts("Digite o código do banco: ")
     input = IO.gets("")
     |> String.trim()
@@ -16,7 +16,7 @@ defmodule Codigobarras.Encoder do
   end
 
   #digito 4
-  def ler_moeda( lista) when is_list(lista) do
+  defp ler_moeda( lista) when is_list(lista) do
 
     IO.puts("Digite o código da moeda: ")
     input = IO.gets("")
@@ -32,7 +32,7 @@ defmodule Codigobarras.Encoder do
   end
   
   # fator de vencimento, digitos 6 a 9
-  def ler_data_vencimento( lista) when is_list(lista) do
+  defp ler_data_vencimento( lista) when is_list(lista) do
     IO.puts("Digite a data de vencimento DD/MM/AAAA: ")
     input = IO.gets("")
     |> String.trim()
@@ -49,7 +49,7 @@ defmodule Codigobarras.Encoder do
   end
   
   # digitos 10 a 19
-  def ler_valor( lista) when is_list(lista) do
+  defp ler_valor( lista) when is_list(lista) do
     IO.puts("Digite o valor: ")
     input = IO.gets("")
     |> String.trim()
@@ -63,7 +63,7 @@ defmodule Codigobarras.Encoder do
 
 
   # digitos 20 a 30
-  def ler_convenio(size , lista) when is_list(lista) do
+  defp ler_convenio(size , lista) when is_list(lista) do
     IO.puts("Digite o tipo de convênio: ")
     input = IO.gets("")
     |> String.trim()
@@ -78,7 +78,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 31, 44
-  def ler_dados_especificos(size , lista) when is_list(lista) do
+  defp ler_dados_especificos(size , lista) when is_list(lista) do
       IO.puts("Digite os dados_especificos: ")
     input = IO.gets("")
     |> String.trim()
@@ -92,28 +92,28 @@ defmodule Codigobarras.Encoder do
   end
 
 
-  def calcular_dv_codigo_barra(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
+  defp calcular_dv_codigo_barra(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
     # TODO
     1
   end
 
 
-  def calcular_dv_campo1(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
+  defp calcular_dv_campo1(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
     # TODO
     1
   end
 
-  def calcular_dv_campo2(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
+  defp calcular_dv_campo2(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
     # TODO
     1
   end
 
-  def calcular_dv_campo3(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
+  defp calcular_dv_campo3(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do
     # TODO
     1
   end
 
-  def imprimir_campo_1(codigo_banco, moeda, digitos) do
+  defp imprimir_campo_1(codigo_banco, moeda, digitos) do
     "Campo 1: "|> IO.puts
     codigo_banco |> IO.inspect
     moeda |> IO.puts
@@ -124,7 +124,7 @@ defmodule Codigobarras.Encoder do
     calcular_dv_campo1(codigo_banco, moeda, digitos) |> IO.puts
   end
 
-  def imprimir_campo_2(digitos, dados_especificos) do
+  defp imprimir_campo_2(digitos, dados_especificos) do
     "Campo 2: "|> IO.write
     [ _ | rest ] = Enum.split(digitos, 5)
     [ before_dot | after_dot ] = Enum.slice(digitos, 5)
@@ -135,19 +135,19 @@ defmodule Codigobarras.Encoder do
     head |> IO.inspect
   end
 
-  def imprimir_campo_3(dados_especificos) do
+  defp imprimir_campo_3(dados_especificos) do
     "Campo 3: "|> IO.write
     [ _ | tail ] = Enum.split(dados_especificos, 6)
     tail |> IO.inspect
   end
 
-  def imprimir_campo_5(data_vencimento, valor) do
+  defp imprimir_campo_5(data_vencimento, valor) do
     "Campo 5: "|> IO.write
     data_vencimento |> IO.inspect
     valor |> IO.inspect
   end
 
-  def imprimir_linha_digitavel(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv) do
+  defp imprimir_linha_digitavel(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv) do
     imprimir_campo_1(codigo_banco, moeda, digitos)
     imprimir_campo_2(digitos, dados_especificos)
     imprimir_campo_3(dados_especificos)
@@ -155,7 +155,7 @@ defmodule Codigobarras.Encoder do
     imprimir_campo_5(data_vencimento, valor)
   end
 
-  def gerar_codigo_barra(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do 
+  defp gerar_codigo_barra(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos) do 
      # TODO
   end
 
