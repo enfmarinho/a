@@ -159,7 +159,7 @@ defmodule Codigobarras.Encoder do
      # TODO
   end
 
-  def read_all() do
+  def ler_registros() do
     codigo_banco = ler_codigo_banco()
     moeda = ler_moeda()
     data_vencimento = ler_data_vencimento()

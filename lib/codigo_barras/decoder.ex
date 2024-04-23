@@ -1,5 +1,5 @@
 defmodule Codigobarras.Decoder do
-  def read() do
+  def ler_codigo_barras() do
     # TODO return a list with 44 ints in the expected order 
     # [codigo_banco, moeda, dv, data_vencimento, valor, convenio, dados_especificos] 
     list = []
@@ -27,6 +27,7 @@ defmodule Codigobarras.Decoder do
     convenio |> imprimir_tipos_convenio
     dados_especificos |> imprimir_dados_especificos
 
+    # TODO check if this function call is correctly
     Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos)
   end
   def imprimir_codigo_banco(codigo_banco) do
