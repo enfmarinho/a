@@ -17,17 +17,16 @@ defmodule Codigobarras.Encoder do
 
   #digito 4
   defp ler_moeda() do
-
     IO.puts("Digite o código da moeda: ")
-    input = IO.gets("")
-    |> String.trim()
-    |> String.split("" , trim: true)
+
+    moeda = IO.gets("")
+    |> String.split("\\s+" , trim: true)
     |> Enum.map(&String.to_integer/1)
 
-    # TODO retornar lista
-    case length(input) == 1 do
-      true -> {:ok , input}
-      false -> {:error , "Número incorreto "}
+    # TODO retornar lista, feito, está retornando a lista chamada moeda
+    case length(moeda) do
+      1 -> {:ok , moeda}
+      _ -> {:error , "Código inválido "}
     end 
   end
   
@@ -42,9 +41,9 @@ defmodule Codigobarras.Encoder do
     # TODO calcular e retornar valor de vencimento
 
     # TODO retornar lista
-    case length(input) == 8 do
-      true -> {:ok , input}
-      false -> {:error , "Número incorreto"}
+    case length(input) do
+      8 -> {:ok , input}
+      _ -> {:error , "Número incorreto"}
     end
   end
   
