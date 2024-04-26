@@ -28,15 +28,14 @@ defmodule Codigobarras.Decoder do
     dados_especificos |> imprimir_dados_especificos
 
     # TODO check if this function call is correctly
-    Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv)
+    Codigobarras.Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv)
   end
   defp imprimir_codigo_banco(codigo_banco) do
     "Codigo do banco: " |> IO.write
     codigo_banco |> IO.inspect
   end
   defp imprimir_moeda(moeda) do
-    "moeda: " |> IO.write
-    moeda |> IO.inspect
+    "moeda: #{moeda} " |> IO.puts
   end
   defp imprimir_data_vencimento(data_vencimento) do 
     "data_vencimento: " |> IO.write

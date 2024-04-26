@@ -119,7 +119,7 @@ defmodule Codigobarras.Encoder do
          dados_especificos
        ) do
     # TODO retornar dv do codigo de barras
-    1
+    1 # TODO Delete this, just a stub
   end
 
   defp calcular_dv_campos(campo) do
