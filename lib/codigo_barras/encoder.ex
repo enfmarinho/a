@@ -53,7 +53,7 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  defp fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
+  def fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
     fator = ler_data()
 
     case fator do
@@ -92,16 +92,20 @@ defmodule Codigobarras.Encoder do
   # digitos 31, 44
   defp ler_dados_especificos() do
 
-    complemento = IO.gets("Digite os dados específicos como Complemento, Agência, Conta e Carteira:  ")
+    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(7) e Carteira(2):  ")
     |> String.trim()
-    |> String.split("", trim: true)
-    |> String.replace(" ", "")
-    |> Enum.map(&String.to_integer/1)
+    |> String.split(" ", trim: true)
+    |> Enum.map( fn x ->
+      case Integer.parse(x) do
+        {int , ""} -> int
+        _ -> {:error , "Caractere inválido "}
+      end
+    end)
 
     # TODO retornar lista
-     case length(complemento) do
-       21 -> {:ok , complemento}
-       _ -> {:error , "Número incorreto "}
+     case length(complemento) == 4 and Enum.all?(complemento , &is_integer/1) do
+       true -> {:ok , complemento}
+       false -> {:error , "Número incorreto "}
      end
   end
 
@@ -120,7 +124,7 @@ defmodule Codigobarras.Encoder do
 
   defp calcular_dv_campos(campo) do
     aux = aux_calcular_dv(Enum.reverse(campo), true)
-    dezena_imediatament_maior = :math.ceil(aux / 10) 
+    dezena_imediatament_maior = :math.ceil(aux / 10)
     dezena_imediatament_maior * 10 - aux
   end
 
@@ -131,10 +135,10 @@ defmodule Codigobarras.Encoder do
       atual = 2 * head
       if atual >= 10 do
         (atual - 10) + 1 + aux_calcular_dv(tail, false)
-      else 
+      else
         atual + aux_calcular_dv(tail, false)
       end
-    else 
+    else
       head + aux_calcular_dv(tail, true)
     end
   end
@@ -142,7 +146,7 @@ defmodule Codigobarras.Encoder do
   defp imprimir_campo_1(codigo_banco, moeda, digitos) do
     digitos_utilizados = Enum.take(digitos, 5)
     campo1 = codigo_banco ++ [moeda] ++ digitos_utilizados
-    
+
     {antes_ponto, depois_ponto} = Enum.split(campo1, 5)
     antes_ponto |> IO.inspect
     "." |> IO.write
