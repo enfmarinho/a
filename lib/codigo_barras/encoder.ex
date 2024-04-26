@@ -15,7 +15,7 @@ defmodule Codigobarras.Encoder do
 
   # digito 4
   defp ler_moeda() do
-    moeda = IO.gets("Digite o código da moeda")
+    moeda = IO.gets("Digite o código da moeda: ")
       |> String.trim()
       |> String.to_integer()
 
@@ -118,59 +118,71 @@ defmodule Codigobarras.Encoder do
          convenio,
          dados_especificos
        ) do
-    # TODO
+    # TODO retornar dv do codigo de barras
     1
   end
 
-  defp calcular_dv_campo1(codigo_banco, moeda, convenio) do
-    # TODO
-    1
+  defp calcular_dv_campos(campo) do
+    aux = aux_calcular_dv(Enum.reverse(campo), true)
+    dezena_imediatament_maior = :math.ceil(aux / 10) 
+    dezena_imediatament_maior * 10 - aux
   end
 
-  defp calcular_dv_campo2(convenio, dados_especificos) do
-    # TODO
-    1
-  end
-
-  defp calcular_dv_campo3(data_vencimento, valor) do
-    # TODO
-    1
+  defp aux_calcular_dv([]), do: 0
+  defp aux_calcular_dv(campo, dobro) do
+    [head | tail] = campo
+    if dobro do
+      atual = 2 * head
+      if atual >= 10 do
+        (atual - 10) + 1 + aux_calcular_dv(tail, false)
+      else 
+        atual + aux_calcular_dv(tail, false)
+      end
+    else 
+      head + aux_calcular_dv(tail, true)
+    end
   end
 
   defp imprimir_campo_1(codigo_banco, moeda, digitos) do
-    codigo_banco |> IO.inspect()
-    moeda |> IO.puts()
-    [head | tail] = digitos
-    head |> IO.puts()
-    '.' |> IO.puts()
-    tail |> IO.inspect()
-    calcular_dv_campo1(codigo_banco, moeda, digitos) |> IO.puts()
-    " " |> IO.puts()
+    digitos_utilizados = Enum.take(digitos, 5)
+    campo1 = codigo_banco ++ [moeda] ++ digitos_utilizados
+    
+    {antes_ponto, depois_ponto} = Enum.split(campo1, 5)
+    antes_ponto |> IO.inspect
+    "." |> IO.write
+    depois_ponto |> IO.inspect
+    calcular_dv_campos(campo1) |> IO.write()
+    " " |> IO.write
   end
 
-  defp imprimir_campo_2(dados_especificos, convenio) do
-    {_head, rest} = Enum.slice(convenio, 5)
-    {before_dot, after_dot} = Enum.slice(rest, 5)
-    before_dot |> IO.inspect()
-    '.' |> IO.puts()
-    after_dot |> IO.inspect()
-    {head, _} = Enum.split(dados_especificos, 3)
-    head |> IO.inspect()
-    calcular_dv_campo2(dados_especificos, convenio) |> IO.write()
-    " " |> IO.puts()
+  defp imprimir_campo_2(convenio, dados_especificos) do
+    { _, convenio_usados} = Enum.split(convenio, 5)
+    { _, dados_especificos_usados} = Enum.split(dados_especificos, 4)
+    campo2 = convenio_usados ++ dados_especificos_usados
+
+    {antes_ponto, depois_ponto} = Enum.split(campo2, 5)
+    antes_ponto |> IO.inspect
+    "." |> IO.write
+    depois_ponto |> IO.inspect
+    calcular_dv_campos(campo2) |> IO.write
+    " " |> IO.write
   end
 
-  defp imprimir_campo_3(convenio, dados_especificos) do
-    {_, tail} = Enum.split(dados_especificos, 6)
-    tail |> IO.inspect()
-    calcular_dv_campo3(convenio, dados_especificos) |> IO.write()
-    " " |> IO.puts()
+  defp imprimir_campo_3(dados_especificos) do
+    {_, dados_especificos_usados} = Enum.split(dados_especificos, 4)
+    campo3 = dados_especificos_usados
+    {antes_ponto, depois_ponto} = Enum.split(campo3, 5)
+    antes_ponto |> IO.inspect
+    "." |> IO.write
+    depois_ponto |> IO.inspect
+    calcular_dv_campos(campo3) |> IO.write()
+    " " |> IO.write
   end
 
   defp imprimir_campo_5(data_vencimento, valor) do
     data_vencimento |> IO.inspect()
     valor |> IO.inspect()
-    " " |> IO.puts()
+    " " |> IO.write()
   end
 
   defp imprimir_linha_digitavel(
@@ -185,8 +197,8 @@ defmodule Codigobarras.Encoder do
     "Linha digital: " |> IO.write()
     imprimir_campo_1(codigo_banco, moeda, convenio)
     imprimir_campo_2(convenio, dados_especificos)
-    imprimir_campo_3(convenio, dados_especificos)
-    "#{dv} " |> IO.puts()
+    imprimir_campo_3(dados_especificos)
+    "#{dv} " |> IO.write()
     imprimir_campo_5(data_vencimento, valor)
   end
 
