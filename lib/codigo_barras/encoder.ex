@@ -65,50 +65,46 @@ defmodule Codigobarras.Encoder do
   defp ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
-      |> String.split("", trim: true)
-      |> Enum.map(&String.to_integer/1)
+      |> String.replace(".", "")
+      |> String.pad_leading(10,"0") #caso precise de uma lista de inteiros basta fazer um Enum.map
 
-    # TODO retornar lista
-    # TODO fill with 0s
-    # TODO verificar se é assim mesmo
-
-    case valor do
+    case String.length(valor) do
       10 -> {:ok, valor}
-      _ -> {:error, "Valor incoerente com o esperado "}
+      _ -> {:error, "Valor inválido "}
     end
   end
 
   # digitos 20 a 30
   defp ler_convenio() do
-    IO.puts("Digite o tipo de convênio: ")
 
-    IO.gets("")
+    convenio = IO.gets("Digite o número do convênio: ")
     |> String.trim()
     |> String.split("", trim: true)
     |> Enum.map(&String.to_integer/1)
 
     # TODO retornar lista
-    # case length(input) == size do
-    #   true -> {:ok , input}
-    #   false -> {:error , "Número incorreto "}
-    # end
+     case length(convenio)do
+       4 -> {:ok , convenio}
+       _ -> {:error , "Número incorreto "}
+     end
   end
 
   # digitos 31, 44
   defp ler_dados_especificos() do
-    IO.puts("Digite os dados_especificos: ")
 
-    IO.gets("")
+    complemento = IO.gets("Digite os dados específicos como Complemento, Agência, Conta e Carteira:  ")
     |> String.trim()
     |> String.split("", trim: true)
+    |> String.replace(" ", "")
     |> Enum.map(&String.to_integer/1)
 
     # TODO retornar lista
-    # case length(input) == size do
-    #   true -> {:ok , input}
-    #   false -> {:error , "Número incorreto "}
-    # end
+     case length(complemento) do
+       21 -> {:ok , complemento}
+       _ -> {:error , "Número incorreto "}
+     end
   end
+
 
   defp calcular_dv_codigo_barra(
          codigo_banco,
