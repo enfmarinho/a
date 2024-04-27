@@ -1,12 +1,12 @@
 defmodule Codigobarras.Encoder do
   # digito 1 a 3
-  defp ler_codigo_banco() do
+  def ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
       |> String.trim()
       |> String.split("", trim: true)
       |> Enum.map(&String.to_integer/1)
 
-    case codigo_banco do
+    case length(codigo_banco) do
       #
       3 -> {:ok, codigo_banco}
       _ -> {:error, "Código inválido "}
@@ -53,7 +53,7 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  def fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
+  defp fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
     fator = ler_data()
 
     case fator do
@@ -62,7 +62,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 10 a 19
-  defp ler_valor() do
+  def ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
