@@ -1,6 +1,6 @@
 defmodule Codigobarras.Encoder do
   # digito 1 a 3
-  def ler_codigo_banco() do
+  defp ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
       |> String.trim()
       |> String.split("", trim: true)
@@ -62,14 +62,19 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 10 a 19
-  def ler_valor() do
+  defp ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
       |> String.pad_leading(10,"0") #caso precise de uma lista de inteiros basta fazer um Enum.map
 
     case String.length(valor) do
-      10 -> {:ok, valor}
+      10 ->
+        valor_int = valor |> String.to_integer()
+        valor_str = valor_int |> Integer.to_string()
+        valor_padded = valor_str |> String.pad_leading(10 , "0")
+        valor_lista = valor_padded |> String.codepoints() |> Enum.map(&String.to_integer/1)
+        {:ok, valor_lista}
       _ -> {:error, "Valor inválido "}
     end
   end
