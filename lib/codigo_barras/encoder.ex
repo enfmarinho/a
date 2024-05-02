@@ -1,6 +1,6 @@
 defmodule Codigobarras.Encoder do
-  def print_list([]), do: []
-  def print_list(list) when list != [] and is_list(list) do
+  defp print_list([]), do: []
+  defp print_list(list) do
     [head | tail] = list
     head |> IO.write
     print_list(tail)
@@ -61,12 +61,8 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  defp fator_de_vencimento() do # função testada e aprovada com retorno {:ok , fator de vencimento}
-    fator = ler_data()
-
-    case fator do
-      _ -> fator
-    end
+  defp fator_de_vencimento() do
+    ler_data() |> Integer.to_string |> String.graphemes |> Enum.map(&String.to_integer/1)
   end
 
   # digitos 10 a 19
@@ -104,7 +100,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 24, 44
-  def ler_dados_especificos() do
+  defp ler_dados_especificos() do
 
     complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
@@ -120,12 +116,12 @@ defmodule Codigobarras.Encoder do
 
 
   defp calcular_dv_codigo_barra(
-         codigo_banco,
-         moeda, # moeda é um int e não uma lista
-         data_vencimento,
-         valor,
-         convenio,
-         dados_especificos
+         _codigo_banco,
+         _moeda, # moeda é um int e não uma lista
+         _data_vencimento,
+         _valor,
+         _convenio,
+         _dados_especificos
        ) do
     1 # TODO Delete this, just a stub
   end
@@ -156,11 +152,11 @@ defmodule Codigobarras.Encoder do
     campo1 = codigo_banco ++ [moeda] ++ digitos_utilizados
 
     {antes_ponto, depois_ponto} = Enum.split(campo1, 5)
-    antes_ponto |> IO.inspect
+    antes_ponto |> print_list 
     "." |> IO.write
-    depois_ponto |> IO.inspect
-    calcular_dv_campos(campo1) |> IO.write()
-    " " |> IO.write
+    depois_ponto |> print_list
+    calcular_dv_campos(campo1) |> IO.write
+    IO.write(" ")
   end
 
   defp imprimir_campo_2(convenio, dados_especificos) do
@@ -169,28 +165,28 @@ defmodule Codigobarras.Encoder do
     campo2 = convenio_usados ++ dados_especificos_usados
 
     {antes_ponto, depois_ponto} = Enum.split(campo2, 5)
-    antes_ponto |> IO.inspect
+    antes_ponto |> print_list 
     "." |> IO.write
-    depois_ponto |> IO.inspect
+    depois_ponto |> print_list
     calcular_dv_campos(campo2) |> IO.write
-    " " |> IO.write
+    IO.write(" ")
   end
 
   defp imprimir_campo_3(dados_especificos) do
     {_, dados_especificos_usados} = Enum.split(dados_especificos, 4)
     campo3 = dados_especificos_usados
     {antes_ponto, depois_ponto} = Enum.split(campo3, 5)
-    antes_ponto |> IO.inspect
+    antes_ponto |> print_list
     "." |> IO.write
-    depois_ponto |> IO.inspect
-    calcular_dv_campos(campo3) |> IO.write()
-    " " |> IO.write
+    depois_ponto |> print_list
+    calcular_dv_campos(campo3) |> IO.write
+    IO.write(" ")
   end
 
   defp imprimir_campo_5(data_vencimento, valor) do
-    data_vencimento |> IO.inspect()
-    valor |> IO.inspect()
-    " " |> IO.write()
+    data_vencimento |> print_list
+    valor |> print_list
+    " " |> IO.write
   end
 
   def imprimir_linha_digitavel(
@@ -208,6 +204,7 @@ defmodule Codigobarras.Encoder do
     imprimir_campo_3(dados_especificos)
     "#{dv} " |> IO.write()
     imprimir_campo_5(data_vencimento, valor)
+    IO.puts("")
   end
 
   defp gerar_codigo_barra(
@@ -220,7 +217,7 @@ defmodule Codigobarras.Encoder do
          dv
        ) do
       # TODO falha na proxima linha, na concatenacao 
-    codigo_barras = codigo_banco ++ [moeda] ++ [dv] ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
+    # _codigo_barras = codigo_banco ++ [moeda] ++ [dv] ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
     # Barlix.ITF.encode!(codigo_barras)
     # {:ok, codigo_barras} = Barlix.Code128.generate(codigo_barras)
     # # Barlix.PNG.print(codigo_barras)
