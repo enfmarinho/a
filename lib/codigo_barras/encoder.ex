@@ -16,7 +16,8 @@ defmodule Codigobarras.Encoder do
     case length(codigo_banco) do
       #
       3 ->  codigo_banco
-      _ -> {:error, "Código inválido "}
+      _ -> "Código inválido " |> IO.puts
+            ler_codigo_banco()
     end
   end
 
@@ -28,7 +29,8 @@ defmodule Codigobarras.Encoder do
 
     case moeda do
       9 ->  moeda
-      _ -> {:error, "Código inválido "}
+      _ -> "Moeda inválida" |> IO.puts
+            ler_moeda()
     end
   end
 
@@ -54,7 +56,8 @@ defmodule Codigobarras.Encoder do
         fator
 
       _ ->
-        {:error, "Formato de data inválido"}
+        IO.puts("Formato de data inválido")
+        ler_data()
     end
   end
 
@@ -81,7 +84,8 @@ defmodule Codigobarras.Encoder do
         valor_lista = valor_padded |> String.codepoints() |> Enum.map(&String.to_integer/1)
         
         valor_lista
-      _ -> {:error, "Valor inválido "}
+      _ -> "Valor inválido " |> IO.puts
+            ler_valor()
     end
   end
 
@@ -94,7 +98,8 @@ defmodule Codigobarras.Encoder do
 
      case length(convenio)do
       4 -> convenio
-       _ -> {:error , "Número incorreto "}
+       _ -> "Número incorreto " |> IO.puts
+       ler_convenio()
      end
   end
 
@@ -108,7 +113,8 @@ defmodule Codigobarras.Encoder do
 
      case length(complemento)do
       21 -> complemento
-       false -> {:error , "Número incorreto "}
+       false -> "Número incorreto " |> IO.puts
+          ler_dados_especificos()
      end
   end
 
@@ -214,9 +220,9 @@ defmodule Codigobarras.Encoder do
          dv
        ) do
     codigo_barras = codigo_banco ++ [moeda] ++ dv ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
-    Barlix.Code128.encode(Enum.join(codigo_barras))
-    {:ok, codigo_barras} = Barlix.Code128.generate(codigo_barras)
-    Barlix.PNG.print(codigo_barras)
+    # Barlix.ITF.encode!(codigo_barras)
+    # {:ok, codigo_barras} = Barlix.Code128.generate(codigo_barras)
+    # # Barlix.PNG.print(codigo_barras)
   end
 
   def ler_registros() do

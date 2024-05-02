@@ -1,6 +1,6 @@
-defmodule CodigoBarrasTest do
+defmodule CodigobarrasTest do
   use ExUnit.Case
-  doctest CodigoBarras
+  doctest Codigobarras
 
   test "Testing the reader of the bar code " do
     

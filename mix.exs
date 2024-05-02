@@ -1,4 +1,4 @@
-defmodule CodigoBarras.MixProject do
+defmodule Codigobarras.MixProject do
   use Mix.Project
 
   def project do

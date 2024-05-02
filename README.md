@@ -1,4 +1,4 @@
-# CodigoBarras
+# Codigobarras
 
 **TODO: Add description**
 
