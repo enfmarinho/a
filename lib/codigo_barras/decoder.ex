@@ -7,7 +7,6 @@ defmodule Codigobarras.Decoder do
 
     case length(codigo_barras) do
       44 ->  split_informacoes(codigo_barras)
-      # TODO checar se eu posso fazer isso
       _ -> "Código inválido" |> IO.puts
             ler_codigo_barras()
     end
@@ -34,7 +33,6 @@ defmodule Codigobarras.Decoder do
     convenio |> imprimir_tipos_convenio
     dados_especificos |> imprimir_dados_especificos
 
-    # TODO check if this function call is correctly
     Codigobarras.Encoder.imprimir_linha_digitavel(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv)
   end
   defp imprimir_codigo_banco(codigo_banco) do
