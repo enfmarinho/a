@@ -1,6 +1,5 @@
 # Codigobarras
-
-**TODO: Add description**
+Decodificador e codificador de códigos de barras no padrão ITF.
 
 ## Installation
 
