@@ -6,7 +6,6 @@ defmodule Codigobarras.Encoder do
     print_list(tail)
   end
 
-  # digito 1 a 3
   defp ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
       |> String.trim()
@@ -14,14 +13,12 @@ defmodule Codigobarras.Encoder do
       |> Enum.map(&String.to_integer/1)
 
     case length(codigo_banco) do
-      #
       3 ->  codigo_banco
       _ -> "Código inválido " |> IO.puts
             ler_codigo_banco()
     end
   end
 
-  # digito 4
   defp ler_moeda() do
     moeda = IO.gets("Digite o código da moeda: ")
       |> String.trim()
@@ -34,7 +31,6 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  # Função funcionando e testada
   defp ler_data do
     data =
       IO.gets("Digite a data de vencimento no formato DD-MM-AAAA: ")
@@ -65,12 +61,11 @@ defmodule Codigobarras.Encoder do
     ler_data() |> Integer.to_string |> String.graphemes |> Enum.map(&String.to_integer/1)
   end
 
-  # digitos 10 a 19
   defp ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
-      |> String.pad_leading(10,"0") # caso precise de uma lista de inteiros basta fazer um Enum.map
+      |> String.pad_leading(10,"0")
 
     case String.length(valor) do
       10 ->
@@ -78,14 +73,12 @@ defmodule Codigobarras.Encoder do
         valor_str = valor_int |> Integer.to_string()
         valor_padded = valor_str |> String.pad_leading(10 , "0")
         valor_lista = valor_padded |> String.codepoints() |> Enum.map(&String.to_integer/1)
-        
         valor_lista
       _ -> "Valor inválido " |> IO.puts
             ler_valor()
     end
   end
 
-  # digitos 20 a 23
   defp ler_convenio() do
     convenio = IO.gets("Digite o número do convênio: ")
     |> String.trim()
@@ -94,22 +87,22 @@ defmodule Codigobarras.Encoder do
 
      case length(convenio)do
       4 -> convenio
-       _ -> "Número incorreto " |> IO.puts
-       ler_convenio()
+      _ -> "Número incorreto " |> IO.puts
+            ler_convenio()
      end
   end
 
-  # digitos 24, 44
   defp ler_dados_especificos() do
 
-    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
+    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4),
+                          Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
     |> String.split("",trim: true)
     |> Enum.map(&String.to_integer/1)
 
      case length(complemento)do
       21 -> complemento
-       false -> "Número incorreto " |> IO.puts
+      _ -> "Número incorreto " |> IO.puts
           ler_dados_especificos()
      end
   end
