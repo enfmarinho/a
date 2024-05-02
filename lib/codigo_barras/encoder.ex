@@ -6,7 +6,7 @@ defmodule Codigobarras.Encoder do
     print_list(tail)
   end
   # digito 1 a 3
-  def ler_codigo_banco() do
+  defp ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
       |> String.trim()
       |> String.split("",trim: true)
@@ -20,7 +20,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digito 4
-  def ler_moeda() do
+  defp ler_moeda() do
     moeda = IO.gets("Digite o código da moeda: ")
       |> String.trim()
       |> String.to_integer()
@@ -57,7 +57,11 @@ defmodule Codigobarras.Encoder do
     end
   end
 
+<<<<<<< HEAD
   def fator_de_vencimento() do # função testada e aprovada com retorno {:ok , fator de vencimento}
+=======
+  defp fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
+>>>>>>> 4e09071919ec86c8d6c4714ba5dd3a46a4f19965
     fator = ler_data()
 
     case fator do
@@ -66,7 +70,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 10 a 19
-  def ler_valor() do
+  defp ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
@@ -84,8 +88,13 @@ defmodule Codigobarras.Encoder do
     end
   end
 
+<<<<<<< HEAD
   # digitos 20 a 23
   def ler_convenio() do
+=======
+  # digitos 20 a 30
+  defp ler_convenio() do
+>>>>>>> 4e09071919ec86c8d6c4714ba5dd3a46a4f19965
 
     convenio = IO.gets("Digite o número do convênio: ")
     |> String.trim()
@@ -99,9 +108,9 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 24, 44
-  def ler_dados_especificos() do
+  defp ler_dados_especificos() do
 
-    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2):  ")
+    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
     |> String.split(" ", trim: true)
     |> Enum.map( fn x ->
@@ -111,7 +120,7 @@ defmodule Codigobarras.Encoder do
       end
     end)
 
-     case length(complemento) == 4 and Enum.all?(complemento , &is_integer/1) do
+     case length(complemento) == 1 and Enum.all?(complemento , &is_integer/1) do
       true -> complemento
        false -> {:error , "Número incorreto "}
      end
