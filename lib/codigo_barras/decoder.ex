@@ -9,14 +9,14 @@ defmodule Codigobarras.Decoder do
       44 ->  split_informacoes(codigo_barras)
       # TODO checar se eu posso fazer isso
       _ -> "Código inválido" |> IO.puts
-            ler_entrada()
+            ler_codigo_barras()
     end
   end
   defp split_informacoes(list) do
     {head, tail} = Enum.split(list, 3)
     codigo_banco = head
     {head, tail} = Enum.split(tail, 1)
-    moeda = head
+    moeda = hd(head)
     {head, tail} = Enum.split(tail, 1)
     dv = head
     {head, tail} = Enum.split(tail, 4)
@@ -35,7 +35,7 @@ defmodule Codigobarras.Decoder do
     dados_especificos |> imprimir_dados_especificos
 
     # TODO check if this function call is correctly
-    Codigobarras.Encoder.imprimir_linha_digital(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv)
+    Codigobarras.Encoder.imprimir_linha_digitavel(codigo_banco, moeda, data_vencimento, valor, convenio, dados_especificos, dv)
   end
   defp imprimir_codigo_banco(codigo_banco) do
     "Codigo do banco: " |> IO.write
