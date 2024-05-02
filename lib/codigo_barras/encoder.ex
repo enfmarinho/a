@@ -86,7 +86,7 @@ defmodule Codigobarras.Encoder do
     |> Enum.map(&String.to_integer/1)
 
      case length(convenio)do
-      4 -> convenio
+      6 -> convenio
       _ -> "Número incorreto " |> IO.puts
             ler_convenio()
      end
@@ -94,14 +94,14 @@ defmodule Codigobarras.Encoder do
 
   defp ler_dados_especificos() do
 
-    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4),
+    complemento = IO.gets("Digite os dados específicos como Complemento(5), Agência(4),
                           Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
     |> String.split("",trim: true)
     |> Enum.map(&String.to_integer/1)
 
      case length(complemento)do
-      21 -> complemento
+      19 -> complemento
       _ -> "Número incorreto " |> IO.puts
           ler_dados_especificos()
      end
@@ -136,7 +136,7 @@ defmodule Codigobarras.Encoder do
   defp calcular_dv_campos(campo) do
     aux = aux_calcular_dv_campos(Enum.reverse(campo), true)
     dezena_imediatamente_maior = :math.ceil(aux / 10)
-    dezena_imediatamente_maior * 10 - aux
+    dezena_imediatamente_maior * 10 - aux |> round
   end
 
   defp aux_calcular_dv_campos([], _), do: 0
@@ -154,9 +154,9 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  defp imprimir_campo_1(codigo_banco, moeda, digitos) do
-    digitos_utilizados = Enum.take(digitos, 5)
-    campo1 = codigo_banco ++ [moeda] ++ digitos_utilizados
+  defp imprimir_campo_1(codigo_banco, moeda, convenio) do
+    convenio_utilizados = Enum.take(convenio, 5)
+    campo1 = codigo_banco ++ [moeda] ++ convenio_utilizados
 
     {antes_ponto, depois_ponto} = Enum.split(campo1, 5)
     antes_ponto |> print_list 
@@ -167,8 +167,8 @@ defmodule Codigobarras.Encoder do
   end
 
   defp imprimir_campo_2(convenio, dados_especificos) do
-    { _, convenio_usados} = Enum.split(convenio, 5)
-    { _, dados_especificos_usados} = Enum.split(dados_especificos, 4)
+    convenio_usados = Enum.take(convenio, -1)
+    dados_especificos_usados = Enum.take(dados_especificos, 9)
     campo2 = convenio_usados ++ dados_especificos_usados
 
     {antes_ponto, depois_ponto} = Enum.split(campo2, 5)
@@ -180,7 +180,7 @@ defmodule Codigobarras.Encoder do
   end
 
   defp imprimir_campo_3(dados_especificos) do
-    {_, dados_especificos_usados} = Enum.split(dados_especificos, 4)
+    dados_especificos_usados = Enum.take(dados_especificos, -9)
     campo3 = dados_especificos_usados
     {antes_ponto, depois_ponto} = Enum.split(campo3, 5)
     antes_ponto |> print_list

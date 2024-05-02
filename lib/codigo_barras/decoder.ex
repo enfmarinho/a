@@ -26,7 +26,7 @@ defmodule Codigobarras.Decoder do
     dv = hd(dv)
     {data_vencimento, tail} = Enum.split(tail, 4)
     {valor, tail} = Enum.split(tail, 10)
-    {convenio, dados_especificos} = Enum.split(tail, 4)
+    {convenio, dados_especificos} = Enum.split(tail, 6)
 
     codigo_banco |> imprimir_codigo_banco
     moeda |> imprimir_moeda
@@ -68,7 +68,7 @@ defmodule Codigobarras.Decoder do
 
   defp imprimir_dados_especificos(dados_especificos) do
     "Complemento: " |> IO.write
-    {complemento, tail} = Enum.split(dados_especificos, 7)
+    {complemento, tail} = Enum.split(dados_especificos, 5)
     print_list(complemento)
     IO.puts("")
     "Agência: " |> IO.write
