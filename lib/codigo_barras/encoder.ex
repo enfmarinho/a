@@ -109,34 +109,48 @@ defmodule Codigobarras.Encoder do
 
 
   defp calcular_dv_codigo_barra(
-         _codigo_banco,
-         _moeda, # moeda é um int e não uma lista
-         _data_vencimento,
-         _valor,
-         _convenio,
-         _dados_especificos
+         data_vencimento,
+         valor,
+         convenio,
+         dados_especificos
        ) do
-    1 # TODO Delete this, just a stub
+    lista = data_vencimento ++ valor ++ convenio ++ dados_especificos
+    lista = Enum.reverse(lista)
+    chave = aux_calcular_dv_codigo_barra(lista, 2, 0) |> rem(11)
+    if chave == 0 or chave == 1 or chave == 11 do
+      1
+    else
+      chave
+    end
+  end
+  defp aux_calcular_dv_codigo_barra([], _, acumulador), do: acumulador
+  defp aux_calcular_dv_codigo_barra([head | tail], peso, acumulador) do 
+    acumulador = acumulador + head * peso
+    if peso + 1 == 10 do
+      aux_calcular_dv_codigo_barra(tail, 2, acumulador)
+    else 
+      aux_calcular_dv_codigo_barra(tail, peso + 1, acumulador)
+    end
   end
 
   defp calcular_dv_campos(campo) do
-    aux = aux_calcular_dv(Enum.reverse(campo), true)
+    aux = aux_calcular_dv_campos(Enum.reverse(campo), true)
     dezena_imediatamente_maior = :math.ceil(aux / 10)
     dezena_imediatamente_maior * 10 - aux
   end
 
-  defp aux_calcular_dv([], _), do: 0
-  defp aux_calcular_dv(campo, dobro) do
+  defp aux_calcular_dv_campos([], _), do: 0
+  defp aux_calcular_dv_campos(campo, dobro) do
     [head | tail] = campo
     if dobro do
       atual = 2 * head
       if atual >= 10 do
-        (atual - 10) + 1 + aux_calcular_dv(tail, false)
+        (atual - 10) + 1 + aux_calcular_dv_campos(tail, false)
       else
-        atual + aux_calcular_dv(tail, false)
+        atual + aux_calcular_dv_campos(tail, false)
       end
     else
-      head + aux_calcular_dv(tail, true)
+      head + aux_calcular_dv_campos(tail, true)
     end
   end
 
@@ -225,8 +239,6 @@ defmodule Codigobarras.Encoder do
 
     dv =
       calcular_dv_codigo_barra(
-        codigo_banco,
-        moeda,
         data_vencimento,
         valor,
         convenio,
