@@ -1,26 +1,26 @@
 defmodule Codigobarras.Encoder do
   # digito 1 a 3
-  defp ler_codigo_banco() do
+  def ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
       |> String.trim()
-      |> String.split("", trim: true)
+      |> String.split("",trim: true)
       |> Enum.map(&String.to_integer/1)
 
     case length(codigo_banco) do
       #
-      3 -> {:ok, codigo_banco}
+      3 ->  codigo_banco
       _ -> {:error, "Código inválido "}
     end
   end
 
   # digito 4
-  defp ler_moeda() do
+  def ler_moeda() do
     moeda = IO.gets("Digite o código da moeda: ")
       |> String.trim()
       |> String.to_integer()
 
     case moeda do
-      9 -> {:ok, moeda}
+      9 ->  moeda
       _ -> {:error, "Código inválido "}
     end
   end
@@ -46,14 +46,15 @@ defmodule Codigobarras.Encoder do
         figas = Timex.diff(data_atual, data_fixa, :days)
         # IO.puts("Diferença: #{figas}")
         fator = figas + 1000
-        {:ok, fator}
+         
+        fator
 
       _ ->
         {:error, "Formato de data inválido"}
     end
   end
 
-  defp fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
+  def fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
     fator = ler_data()
 
     case fator do
@@ -62,7 +63,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 10 a 19
-  defp ler_valor() do
+  def ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
@@ -74,13 +75,14 @@ defmodule Codigobarras.Encoder do
         valor_str = valor_int |> Integer.to_string()
         valor_padded = valor_str |> String.pad_leading(10 , "0")
         valor_lista = valor_padded |> String.codepoints() |> Enum.map(&String.to_integer/1)
-        {:ok, valor_lista}
+        
+        valor_lista
       _ -> {:error, "Valor inválido "}
     end
   end
 
   # digitos 20 a 30
-  defp ler_convenio() do
+  def ler_convenio() do
 
     convenio = IO.gets("Digite o número do convênio: ")
     |> String.trim()
@@ -89,15 +91,16 @@ defmodule Codigobarras.Encoder do
 
     # TODO retornar lista
      case length(convenio)do
-       4 -> {:ok , convenio}
+      #  4 -> {:ok , convenio}
+      4 -> convenio
        _ -> {:error , "Número incorreto "}
      end
   end
 
   # digitos 31, 44
-  defp ler_dados_especificos() do
+  def ler_dados_especificos() do
 
-    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(7) e Carteira(2):  ")
+    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2):  ")
     |> String.trim()
     |> String.split(" ", trim: true)
     |> Enum.map( fn x ->
@@ -109,7 +112,8 @@ defmodule Codigobarras.Encoder do
 
     # TODO retornar lista
      case length(complemento) == 4 and Enum.all?(complemento , &is_integer/1) do
-       true -> {:ok , complemento}
+      #true -> {:ok , complemento}
+      true -> complemento
        false -> {:error , "Número incorreto "}
      end
   end
