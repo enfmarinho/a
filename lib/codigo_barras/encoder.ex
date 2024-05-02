@@ -117,7 +117,7 @@ defmodule Codigobarras.Encoder do
 
   defp calcular_dv_codigo_barra(
          codigo_banco,
-         moeda,
+         moeda, # moeda é um int e não uma lista
          data_vencimento,
          valor,
          convenio,
