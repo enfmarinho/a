@@ -99,15 +99,15 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 24, 44
-  defp ler_dados_especificos() do
+  def ler_dados_especificos() do
 
     complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
     |> String.split("",trim: true)
     |> Enum.map(&String.to_integer/1)
 
-     case length(complemento) == 1 and Enum.all?(complemento , &is_integer/1) do
-      true -> complemento
+     case length(complemento)do
+      21 -> complemento
        false -> {:error , "Número incorreto "}
      end
   end
