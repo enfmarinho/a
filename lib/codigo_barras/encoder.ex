@@ -1,6 +1,6 @@
 defmodule Codigobarras.Encoder do
   # digito 1 a 3
-  def ler_codigo_banco() do
+  defp ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
       |> String.trim()
       |> String.split("",trim: true)
@@ -14,7 +14,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digito 4
-  def ler_moeda() do
+  defp ler_moeda() do
     moeda = IO.gets("Digite o código da moeda: ")
       |> String.trim()
       |> String.to_integer()
@@ -54,7 +54,7 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  def fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
+  defp fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
     fator = ler_data()
 
     case fator do
@@ -63,7 +63,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 10 a 19
-  def ler_valor() do
+  defp ler_valor() do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
@@ -82,7 +82,7 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 20 a 30
-  def ler_convenio() do
+  defp ler_convenio() do
 
     convenio = IO.gets("Digite o número do convênio: ")
     |> String.trim()
@@ -98,9 +98,9 @@ defmodule Codigobarras.Encoder do
   end
 
   # digitos 31, 44
-  def ler_dados_especificos() do
+  defp ler_dados_especificos() do
 
-    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2):  ")
+    complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
     |> String.split(" ", trim: true)
     |> Enum.map( fn x ->
@@ -111,7 +111,7 @@ defmodule Codigobarras.Encoder do
     end)
 
     # TODO retornar lista
-     case length(complemento) == 4 and Enum.all?(complemento , &is_integer/1) do
+     case length(complemento) == 1 and Enum.all?(complemento , &is_integer/1) do
       #true -> {:ok , complemento}
       true -> complemento
        false -> {:error , "Número incorreto "}
