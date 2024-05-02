@@ -1,4 +1,6 @@
 defmodule Codigobarras.Decoder do
+  # @callback ler_codigo_barras() :: atom
+
   defp print_list([]), do: []
   defp print_list(list) do
     [head | tail] = list
@@ -16,6 +18,7 @@ defmodule Codigobarras.Decoder do
       _ -> "Código inválido" |> IO.puts
             ler_codigo_barras()
     end
+    {:ok}
   end
 
   defp split_informacoes(list) do

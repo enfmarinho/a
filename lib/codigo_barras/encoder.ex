@@ -1,4 +1,6 @@
 defmodule Codigobarras.Encoder do
+  # @callback ler_registros() :: atom
+
   defp print_list([]), do: []
   defp print_list(list) do
     [head | tail] = list

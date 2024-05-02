@@ -1,5 +1,6 @@
 defmodule CodigobarrasTest do
   use ExUnit.Case
+  import ExUnit.CaptureIO
   doctest Codigobarras
 
   test "Testing the reader of the bar code " do
@@ -36,6 +37,14 @@ defmodule CodigobarrasTest do
       #TODO
     end
 
-  test "Decodificador recebe "
+    test "Encoder" do
+      # TODO
+      # input = "104\n9\n22-02-2024\n1062.75\n611447\n4000100040031663110\n"
+      # expected_output = "Linha digital: 10496.11443 74000.100045 03166.31100 9 96510000106275\n"
+      #
+      # assert capture_io(input, Codigobarras.Encoder.ler_registros()) == expected_output
+    end
+
+  # test "Decodificador recebe "
 
 end
