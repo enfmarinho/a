@@ -129,8 +129,8 @@ defmodule Codigobarras.Encoder do
 
   defp calcular_dv_campos(campo) do
     aux = aux_calcular_dv(Enum.reverse(campo), true)
-    dezena_imediatament_maior = :math.ceil(aux / 10)
-    dezena_imediatament_maior * 10 - aux
+    dezena_imediatamente_maior = :math.ceil(aux / 10)
+    dezena_imediatamente_maior * 10 - aux
   end
 
   defp aux_calcular_dv([]), do: 0
