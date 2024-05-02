@@ -1,4 +1,10 @@
 defmodule Codigobarras.Encoder do
+  def print_list([]), do: []
+  def print_list(list) when list != [] do
+    [head, tail] = list
+    head |> IO.write
+    print_list(tail)
+  end
   # digito 1 a 3
   def ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
@@ -39,12 +45,9 @@ defmodule Codigobarras.Encoder do
         year = String.to_integer(year_str)
 
         data_atual = Timex.Date.new!(year, month, dia)
-        # IO.puts(data_atual)
-        # {:ok, data_atual}
 
         data_fixa = ~D[2000-07-03]
         figas = Timex.diff(data_atual, data_fixa, :days)
-        # IO.puts("Diferença: #{figas}")
         fator = figas + 1000
          
         fator
@@ -54,7 +57,7 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  def fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
+  def fator_de_vencimento() do # função testada e aprovada com retorno {:ok , fator de vencimento}
     fator = ler_data()
 
     case fator do
@@ -67,7 +70,7 @@ defmodule Codigobarras.Encoder do
     valor = IO.gets("Digite o valor do boleto: ")
       |> String.trim()
       |> String.replace(".", "")
-      |> String.pad_leading(10,"0") #caso precise de uma lista de inteiros basta fazer um Enum.map
+      |> String.pad_leading(10,"0") # caso precise de uma lista de inteiros basta fazer um Enum.map
 
     case String.length(valor) do
       10 ->
@@ -81,7 +84,7 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-  # digitos 20 a 30
+  # digitos 20 a 23
   def ler_convenio() do
 
     convenio = IO.gets("Digite o número do convênio: ")
@@ -89,15 +92,13 @@ defmodule Codigobarras.Encoder do
     |> String.split("", trim: true)
     |> Enum.map(&String.to_integer/1)
 
-    # TODO retornar lista
      case length(convenio)do
-      #  4 -> {:ok , convenio}
       4 -> convenio
        _ -> {:error , "Número incorreto "}
      end
   end
 
-  # digitos 31, 44
+  # digitos 24, 44
   def ler_dados_especificos() do
 
     complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2):  ")
@@ -110,9 +111,7 @@ defmodule Codigobarras.Encoder do
       end
     end)
 
-    # TODO retornar lista
      case length(complemento) == 4 and Enum.all?(complemento , &is_integer/1) do
-      #true -> {:ok , complemento}
       true -> complemento
        false -> {:error , "Número incorreto "}
      end
@@ -127,7 +126,6 @@ defmodule Codigobarras.Encoder do
          convenio,
          dados_especificos
        ) do
-    # TODO retornar dv do codigo de barras
     1 # TODO Delete this, just a stub
   end
 
@@ -194,7 +192,7 @@ defmodule Codigobarras.Encoder do
     " " |> IO.write()
   end
 
-  defp imprimir_linha_digitavel(
+  def imprimir_linha_digitavel(
          codigo_banco,
          moeda,
          data_vencimento,

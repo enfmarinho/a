@@ -22,7 +22,7 @@ defmodule Codigobarras.Decoder do
     data_vencimento = head
     {head, tail} = Enum.split(tail, 10)
     valor = head
-    {head, tail} = Enum.split(tail, 11)
+    {head, tail} = Enum.split(tail, 4)
     convenio = head
     dados_especificos = tail
 
@@ -55,7 +55,21 @@ defmodule Codigobarras.Decoder do
     convenio |> IO.inspect
   end
   defp imprimir_dados_especificos(dados_especificos) do
-    "Dados especificos: " |> IO.write
-    dados_especificos |> IO.inspect
+    "Complemento: " |> IO.write
+    {complemento, tail} = Enum.split(dados_especificos, 7)
+    Codigobarras.Encoder.print_list(complemento)
+    IO.puts("")
+    "Agência: " |> IO.write
+    {agencia, tail} = Enum.split(tail, 4)
+    Codigobarras.Encoder.print_list(agencia)
+    IO.puts("")
+    "Conta: " |> IO.write
+    {conta, tail} = Enum.split(tail, 8)
+    Codigobarras.Encoder.print_list(conta)
+    IO.puts("")
+    "Carteira: " |> IO.write
+    {carteira, _tail} = Enum.split(tail, 2)
+    Codigobarras.Encoder.print_list(carteira)
+    IO.puts("")
   end
 end
