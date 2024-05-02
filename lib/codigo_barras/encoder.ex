@@ -219,7 +219,8 @@ defmodule Codigobarras.Encoder do
          dados_especificos,
          dv
        ) do
-    codigo_barras = codigo_banco ++ [moeda] ++ dv ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
+      # TODO falha na proxima linha, na concatenacao 
+    codigo_barras = codigo_banco ++ [moeda] ++ [dv] ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
     # Barlix.ITF.encode!(codigo_barras)
     # {:ok, codigo_barras} = Barlix.Code128.generate(codigo_barras)
     # # Barlix.PNG.print(codigo_barras)
