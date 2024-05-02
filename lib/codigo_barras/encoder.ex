@@ -1,7 +1,7 @@
 defmodule Codigobarras.Encoder do
   def print_list([]), do: []
-  def print_list(list) when list != [] do
-    [head, tail] = list
+  def print_list(list) when list != [] and is_list(list) do
+    [head | tail] = list
     head |> IO.write
     print_list(tail)
   end
@@ -130,7 +130,7 @@ defmodule Codigobarras.Encoder do
     dezena_imediatamente_maior * 10 - aux
   end
 
-  defp aux_calcular_dv([]), do: 0
+  defp aux_calcular_dv([], _), do: 0
   defp aux_calcular_dv(campo, dobro) do
     [head | tail] = campo
     if dobro do
@@ -213,7 +213,10 @@ defmodule Codigobarras.Encoder do
          dados_especificos,
          dv
        ) do
-    # TODO gerar png com o codigo de barra
+    codigo_barras = codigo_banco ++ [moeda] ++ dv ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
+    Barlix.Code128.encode(Enum.join(codigo_barras))
+    {:ok, codigo_barras} = Barlix.Code128.generate(codigo_barras)
+    Barlix.PNG.print(codigo_barras)
   end
 
   def ler_registros() do

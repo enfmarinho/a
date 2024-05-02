@@ -12,19 +12,13 @@ defmodule Codigobarras.Decoder do
     end
   end
   defp split_informacoes(list) do
-    {head, tail} = Enum.split(list, 3)
-    codigo_banco = head
-    {head, tail} = Enum.split(tail, 1)
-    moeda = hd(head)
-    {head, tail} = Enum.split(tail, 1)
-    dv = head
-    {head, tail} = Enum.split(tail, 4)
-    data_vencimento = head
-    {head, tail} = Enum.split(tail, 10)
-    valor = head
-    {head, tail} = Enum.split(tail, 4)
-    convenio = head
-    dados_especificos = tail
+    {codigo_banco, tail} = Enum.split(list, 3)
+    {moeda, tail} = Enum.split(tail, 1)
+    moeda = hd(moeda)
+    {dv, tail} = Enum.split(tail, 1)
+    {data_vencimento, tail} = Enum.split(tail, 4)
+    {valor, tail} = Enum.split(tail, 10)
+    {convenio, dados_especificos} = Enum.split(tail, 4)
 
     codigo_banco |> imprimir_codigo_banco
     moeda |> imprimir_moeda
