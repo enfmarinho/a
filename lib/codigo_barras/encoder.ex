@@ -97,25 +97,18 @@ defmodule Codigobarras.Encoder do
      end
   end
 
-  # digitos 31, 44
-  defp ler_dados_especificos() do
-
+  def ler_dados_especificos()do
+ 
     complemento = IO.gets("Digite os dados específicos como Complemento(7), Agência(4), Conta(8) e Carteira(2): ENTRAR COM OS DADOS SEM ESPAÇAMENTO ")
     |> String.trim()
-    |> String.split(" ", trim: true)
-    |> Enum.map( fn x ->
-      case Integer.parse(x) do
-        {int , ""} -> int
-        _ -> {:error , "Caractere inválido "}
-      end
-    end)
+    |> String.split("",trim: true)
+    |> Enum.map(&String.to_integer/1)
 
-    # TODO retornar lista
-     case length(complemento) == 1 and Enum.all?(complemento , &is_integer/1) do
-      #true -> {:ok , complemento}
-      true -> complemento
-       false -> {:error , "Número incorreto "}
-     end
+    case length(complemento) do
+      #
+      21 ->  complemento
+      _ -> {:error, "Código inválido "}
+    end
   end
 
 

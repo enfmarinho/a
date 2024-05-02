@@ -9,7 +9,7 @@ defmodule CodigoBarrasTest do
     assert capture_io([input: input], fn -> assert Codigobarras.Encoder.ler_codigo_banco() == expected_codigo_banco end) == input
 
     #exemplo de teste 
-
+    end
 
     test "Teste de códigos de barras com 44 dígitos" do
       
@@ -36,5 +36,6 @@ defmodule CodigoBarrasTest do
       #TODO
     end
 
-  end
+  test "Decodificador recebe "
+
 end
