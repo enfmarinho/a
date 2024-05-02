@@ -5,6 +5,7 @@ defmodule Codigobarras.Encoder do
     head |> IO.write
     print_list(tail)
   end
+
   # digito 1 a 3
   defp ler_codigo_banco() do
     codigo_banco = IO.gets("Digite o código do banco: ")
@@ -57,11 +58,7 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-<<<<<<< HEAD
-  def fator_de_vencimento() do # função testada e aprovada com retorno {:ok , fator de vencimento}
-=======
-  defp fator_de_vencimento() do #função testada e aprovada com retorno {:ok , fator de vencimento}
->>>>>>> 4e09071919ec86c8d6c4714ba5dd3a46a4f19965
+  defp fator_de_vencimento() do # função testada e aprovada com retorno {:ok , fator de vencimento}
     fator = ler_data()
 
     case fator do
@@ -88,14 +85,8 @@ defmodule Codigobarras.Encoder do
     end
   end
 
-<<<<<<< HEAD
   # digitos 20 a 23
-  def ler_convenio() do
-=======
-  # digitos 20 a 30
   defp ler_convenio() do
->>>>>>> 4e09071919ec86c8d6c4714ba5dd3a46a4f19965
-
     convenio = IO.gets("Digite o número do convênio: ")
     |> String.trim()
     |> String.split("", trim: true)
