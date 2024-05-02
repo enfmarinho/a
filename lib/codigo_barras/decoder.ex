@@ -40,7 +40,8 @@ defmodule Codigobarras.Decoder do
 
   defp imprimir_codigo_banco(codigo_banco) do
     "Codigo do banco: " |> IO.write
-    codigo_banco |> IO.inspect
+    codigo_banco |> print_list
+    IO.puts("")
   end
 
   defp imprimir_moeda(moeda) do
@@ -49,17 +50,20 @@ defmodule Codigobarras.Decoder do
 
   defp imprimir_data_vencimento(data_vencimento) do 
     "data_vencimento: " |> IO.write
-    data_vencimento |> IO.inspect
+    data_vencimento |> print_list
+    IO.puts("")
   end
 
   defp imprimir_valor(valor) do
     "Valor: " |> IO.write
-    valor |> IO.inspect
+    valor |> print_list
+    IO.puts("")
   end
 
   defp imprimir_tipos_convenio(convenio) do
     "Convenio: " |> IO.write
-    convenio |> IO.inspect
+    convenio |> print_list
+    IO.puts("")
   end
 
   defp imprimir_dados_especificos(dados_especificos) do
