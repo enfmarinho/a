@@ -1,9 +1,16 @@
 defmodule Codigobarras.Decoder do
   def ler_codigo_barras() do
-    # TODO return a list with 44 ints in the expected order 
-    # [codigo_banco, moeda, dv, data_vencimento, valor, convenio, dados_especificos] 
-    list = [] # garantir que lista tem 44 digitos
-    split_informacoes(list)
+    codigo_barras = IO.gets("Digite a sequencia do codigo de barras: ")
+      |> String.trim()
+      |> String.split("", trim: true)
+      |> Enum.map(&String.to_integer/1)
+
+    case length(codigo_barras) do
+      44 ->  split_informacoes(codigo_barras)
+      # TODO checar se eu posso fazer isso
+      _ -> "Código inválido" |> IO.puts
+            ler_entrada()
+    end
   end
   defp split_informacoes(list) do
     {head, tail} = Enum.split(list, 3)
