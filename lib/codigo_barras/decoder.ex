@@ -1,6 +1,6 @@
 defmodule Codigobarras.Decoder do
-  def print_list([]), do: []
-  def print_list(list) do
+  defp print_list([]), do: []
+  defp print_list(list) do
     [head | tail] = list
     head |> IO.write
     print_list(tail)
@@ -23,6 +23,7 @@ defmodule Codigobarras.Decoder do
     {moeda, tail} = Enum.split(tail, 1)
     moeda = hd(moeda)
     {dv, tail} = Enum.split(tail, 1)
+    dv = hd(dv)
     {data_vencimento, tail} = Enum.split(tail, 4)
     {valor, tail} = Enum.split(tail, 10)
     {convenio, dados_especificos} = Enum.split(tail, 4)
