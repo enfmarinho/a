@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{booktabs} %TABELAS
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black
+}
+
+\title{Relatório da atividade 2}
+\author{Eduardo Marinho e Rafael Rosendo}
+\date{Maio 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+
+O objetivo deste relatório é apresentar o desenvolvimento de um codificador e decodificador de código de barras utilizando a linguagem de programação Elixir. O sistema foi feito para trabalhar com o sistema bancário da FEBRABAN e do Banco Central do Brasil.
+
+Este projeto visa não apenas a implementação de um sistema capaz de gerar e interpretar códigos de barras, mas também a exploração das características únicas da linguagem Elixir para desenvolver uma solução robusta e eficiente. Ao longo deste relatório, serão abordados os princípios teóricos por trás dos códigos de barras, a metodologia de desenvolvimento adotada, os desafios encontrados e as soluções implementadas.
+
+
+Neste link se encontra o repositório com o código fonte via github \href{https://github.com/enfmarinho/codigo_barras}{link do repositório}
+
+\\
+
+
+\section{Codificador}
+Na parte de codificação do sistema de código de barras foi utilizado uma interface mais amigável para o cliente a fim de que o mesmo digite por vez cada campo individualmente com o intuito de facilitar a realização do código de barras, seja tanto no formato de 44 dígitos ou no formato de imagem PNG e a geração da linha digitável de 47 dígitos. 
+
+
+
+Na primeira parte foi desenvolvido funções privadas para auxiliar na obtenção dos dígitos a serem fornecidos pelo cliente, logo foi feito uma lista de cada campo individual, e essas listas com todos os dados foram usados para o calculo do Dígito Verificador tanto da linha digitável quanto do código de barras. E com isso foi feito facilmente tudo o que é requisitado na tarefa, ou seja, código de 44 dígitos, código de 47 dígitos e uma imagem PNG do código de barras usando uma biblioteca do elixir chamada barlix
+
+
+
+Foi criado uma interface modularizada que lê cada um dos campos necessários, tais quais: codigo do banco, moeda, data do vencimento, valor, convênio e os dados específicos, e os válida, tratando erros e exceções, após a leitura, são utilizadas funções que implementam os algoritmos descritos pelo banco do brasil para o cálculo do dv e a geração dos campos das linhas digitáveis. Após isso, as linhas digitáveis são impressas na saída padrão e o código de barras é gerado em um arquivo png através da biblioteca "barlix".
+
+
+\section{Decodificador}
+
+O decodificador desempenha um papel crucial na interpretação dos códigos de barras recebidos, facilitando transações eficientes. Utilizando uma abordagem simplificada, o algoritmo recebe como entrada uma string de 44 dígitos e usando princípios da programação funcional e alguns módulos oferecidos pelo Elixir é aplicado funções recursivas na entrada fornecida pelo cliente e então é feito uma divisão da lista em cada campo específico assim como na saída do codificador, seguindo a estrutura estabelecida pelo Banco do Brasil. A partir dessa divisão, cada parte é associada a uma saída correspondente, fornecendo ao cliente uma visualização detalhada de cada campo e seu respectivo valor.  
+
+
+
+As funções do codificador foram aproveitadas a medida do possível para evitar redundâncias. Como dito, é aceito a linha do código de barra da entrada padrão, em seguida é realizado verificações e tratamento de erros, caso tudo esteja correto, as informações do código de barras são separadas em diferentes campos e, então, os campos são impressos na saída padrão e a linha digitável é gerada e também impressa na saída padrão.
+
+\section{Conclusão}
+
+Este relatório apresentou o desenvolvimento de um sistema de codificação e decodificação de código de barras em Elixir, projetado para atender às exigências do sistema bancário brasileiro. Ao explorar as características únicas da linguagem Elixir, conseguimos implementar uma solução robusta e eficiente para a geração e interpretação de códigos de barras. Como próximos passos, planejamos continuar refinando o sistema e explorar novas oportunidades para sua aplicação em diferentes contextos comerciais. 
+
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{Tabela de Participação}
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Nome} & \textbf{Participação (de 0 a 10)} \\
+    \midrule
+    Rafael Rosendo & 10 \\
+    Eduardo Marinho & 10 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\end{document}
+
