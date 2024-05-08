@@ -182,7 +182,7 @@ defmodule Codigobarras.Encoder do
   end
 
   defp imprimir_campo_3(dados_especificos) do
-    dados_especificos_usados = Enum.take(dados_especificos, -9)
+    dados_especificos_usados = Enum.take(dados_especificos, -10)
     campo3 = dados_especificos_usados
     {antes_ponto, depois_ponto} = Enum.split(campo3, 5)
     antes_ponto |> print_list
