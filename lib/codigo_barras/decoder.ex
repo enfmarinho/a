@@ -1,6 +1,4 @@
 defmodule Codigobarras.Decoder do
-  # @callback ler_codigo_barras() :: atom
-
   defp print_list([]), do: []
   defp print_list(list) do
     [head | tail] = list
@@ -51,10 +49,20 @@ defmodule Codigobarras.Decoder do
     "moeda: #{moeda} " |> IO.puts
   end
 
-  defp imprimir_data_vencimento(data_vencimento) do 
+  defp imprimir_data_vencimento(fator_vencimento) do 
     "data_vencimento: " |> IO.write
-    data_vencimento |> print_list
-    IO.puts("")
+    fator_vencimento = Enum.reverse(fator_vencimento)
+    fator_vencimento = converter_lista_para_int(fator_vencimento, 1, 0)
+    fator_vencimento = fator_vencimento - 1000
+    {:ok, data} = Timex.shift(~D[2000-07-03], days: fator_vencimento) |> Timex.format("{D}-{M}-{YYYY}")
+    IO.puts(data)
+  end
+
+  defp converter_lista_para_int([], _, acumulador), do: acumulador 
+  defp converter_lista_para_int([head | tail], casa_decimal, acumulador) do
+    acumulador = acumulador + casa_decimal * head
+    casa_decimal = casa_decimal * 10
+    converter_lista_para_int(tail, casa_decimal, acumulador)
   end
 
   defp imprimir_valor(valor) do
