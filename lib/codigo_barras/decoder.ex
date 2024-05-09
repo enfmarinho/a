@@ -67,9 +67,17 @@ defmodule Codigobarras.Decoder do
 
   defp imprimir_valor(valor) do
     "Valor: " |> IO.write
-    valor |> print_list
+    valor = valor |> remover_0_da_frente 
+    {antes_ponto, depois_ponto} = Enum.split(valor, -2)
+    antes_ponto |> print_list
+    IO.write('.')
+    depois_ponto |> print_list
     IO.puts("")
   end
+
+  defp remover_0_da_frente([]), do: []
+  defp remover_0_da_frente([head | tail]) when head != 0, do: [head | tail]
+  defp remover_0_da_frente([head | tail]) when head == 0, do: remover_0_da_frente(tail)
 
   defp imprimir_tipos_convenio(convenio) do
     "Convenio: " |> IO.write

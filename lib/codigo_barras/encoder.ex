@@ -64,7 +64,7 @@ defmodule Codigobarras.Encoder do
   end
 
   defp ler_valor() do
-    valor = IO.gets("Digite o valor do boleto: ")
+    valor = IO.gets("Digite o valor do boleto, separando por pontos as casas decimais(2): ")
       |> String.trim()
       |> String.replace(".", "")
       |> String.pad_leading(10,"0")
@@ -229,6 +229,8 @@ defmodule Codigobarras.Encoder do
          dv
        ) do
     codigo_barras = codigo_banco ++ [moeda] ++ [dv] ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
+    "Codigo de barras (44 digitos): " |> IO.write
+    codigo_barras |> print_list
     codigo_barras = codigo_barras |> Enum.map(&Integer.to_string/1) |> Enum.join()
     {:ok, image} = Barlix.ITF.encode!(codigo_barras) |> Barlix.PNG.print
     File.write("codigo_barra.png", image)
