@@ -231,6 +231,8 @@ defmodule Codigobarras.Encoder do
     codigo_barras = codigo_banco ++ [moeda] ++ [dv] ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
     "Codigo de barras (44 digitos): " |> IO.write
     codigo_barras |> print_list
+    IO.puts("")
+    IO.puts("O código de barras foi salvo no arquivo codigo_barra.png")
     codigo_barras = codigo_barras |> Enum.map(&Integer.to_string/1) |> Enum.join()
     {:ok, image} = Barlix.ITF.encode!(codigo_barras) |> Barlix.PNG.print
     File.write("codigo_barra.png", image)
