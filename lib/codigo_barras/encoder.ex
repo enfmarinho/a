@@ -122,7 +122,7 @@ defmodule Codigobarras.Encoder do
     lista = Enum.reverse(lista)
     chave = aux_calcular_dv_codigo_barra(lista, 2, 0) |> rem(11)
     chave = 11 - chave
-    if chave == 0 or chave == 1 or chave == 11 do
+    if chave == 0 or chave == 10 or chave == 11 do
       1
     else
       chave
