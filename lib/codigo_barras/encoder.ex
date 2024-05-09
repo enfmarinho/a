@@ -111,14 +111,17 @@ defmodule Codigobarras.Encoder do
 
 
   defp calcular_dv_codigo_barra(
+         codigo_barra,
+         moeda,
          data_vencimento,
          valor,
          convenio,
          dados_especificos
        ) do
-    lista = data_vencimento ++ valor ++ convenio ++ dados_especificos
+    lista = codigo_barra ++ [moeda] ++ data_vencimento ++ valor ++ convenio ++ dados_especificos
     lista = Enum.reverse(lista)
     chave = aux_calcular_dv_codigo_barra(lista, 2, 0) |> rem(11)
+    chave = 11 - chave
     if chave == 0 or chave == 1 or chave == 11 do
       1
     else
@@ -241,6 +244,8 @@ defmodule Codigobarras.Encoder do
 
     dv =
       calcular_dv_codigo_barra(
+        codigo_banco,
+        moeda,
         data_vencimento,
         valor,
         convenio,
