@@ -64,7 +64,7 @@ defmodule Codigobarras.Encoder do
   end
 
   defp ler_valor() do
-    valor = IO.gets("Digite o valor do boleto, separando por pontos as casas decimais(2): ")
+    valor = IO.gets("Digite o valor do boleto, separando por ponto as casas decimais(2): ")
       |> String.trim()
       |> String.replace(".", "")
       |> String.pad_leading(10,"0")
